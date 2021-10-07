@@ -1,16 +1,18 @@
-import express from 'express';
+const express = require("express");
+const ruleFileExtension = require("./src/extension_decider")
+const jsonRedirectionRules = require("./src/json_resolver")
 
 const app = express();
+const FOUND = 302;
 
-const redirectionRule = {
-    "gw": "https://discovery-indexing-contentgw-service.moon.trendyol.com"
-}
+const strategy = { '.json': jsonRedirectionRules }
 
-const FOUND = 302
+const rules = strategy[ruleFileExtension]
 
 app.get('/', (req, res) => {
     const host = req.headers.host;
-    res.redirect(redirectionRule[host], FOUND);
+    console.log(`host is ${ host } rule is ${ rules[host] }`)
+    res.redirect(FOUND, rules[host]);
 });
 
-app.listen(80)
+app.listen(80);

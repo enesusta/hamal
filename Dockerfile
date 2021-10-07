@@ -14,4 +14,6 @@ COPY . /data/app/
 
 WORKDIR /data/app/
 
+EXPOSE 80
+
 ENTRYPOINT ["node", "index.js"]
