@@ -1,7 +1,0 @@
-redirections:
-  - from: gw
-    to: https://discovery-indexing-contentgw-service.moon.trendyol.com
-  - from: gw-int
-    to: https://discovery-indexing-intcontentgw-service.moon.trendyol.com
-  - from: any
-    to: google.com
