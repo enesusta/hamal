@@ -1,6 +1,5 @@
 #!/bin/bash
 
-docker run -e RULES_FILE=redirections.json \
-  --network host \
+docker run -e RULES_FILE=redirections.yml \
   -p 80:80 \
-  -v $(pwd)/redirections.json:/redirections.json hamal
+  -v $(pwd)/redirections.yml:/redirections.yml hamal

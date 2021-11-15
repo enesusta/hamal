@@ -1,16 +1,22 @@
 const express = require("express");
 const ruleFileExtension = require("./src/extension_decider")
-const jsonRedirectionRules = require("./src/json_resolver")
 
 const app = express();
 const FOUND = 302;
 
-const strategy = { '.json': jsonRedirectionRules }
+console.log(ruleFileExtension)
+const strategy = {
+    '.json': require('./src/json_resolver'),
+    '.yml': require('./src/yml_resolver')
+}
+
+
 
 const rules = strategy[ruleFileExtension]
 
 app.get('/', (req, res) => {
     const host = req.headers.host;
+    console.log(rules)
     console.log(`host is ${ host } rule is ${ rules[host] }`)
     res.redirect(FOUND, rules[host]);
 });
