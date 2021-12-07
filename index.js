@@ -11,14 +11,22 @@ const strategy = {
 }
 
 
-
 const rules = strategy[ruleFileExtension]
 
 app.get('/', (req, res) => {
     const host = req.headers.host;
-    console.log(rules)
-    console.log(`host is ${ host } rule is ${ rules[host] }`)
     res.redirect(FOUND, rules[host]);
+});
+
+app.get('/r/:param', (req, res) => {
+    const host = req.headers.host;
+    const param = req.params.param;
+
+    if ( param ) {
+        res.redirect(FOUND, `${ rules[host] }/${ param }`);
+    } else {
+        res.redirect(FOUND, rules[host]);
+    }
 });
 
 app.listen(80);
